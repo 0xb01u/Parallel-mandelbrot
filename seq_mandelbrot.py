@@ -1,3 +1,4 @@
+print("Loading libraries...")
 import numpy as np
 from math import log
 from PIL import Image
@@ -123,9 +124,7 @@ sleep(1) # For dramatic effect
 print(f"\nTOTAL EXECUTION TIME: {t_end - t_ini}s\n")
 
 # Print execution time statistics:
-time_generation *= 1000
-
-print(f"Generation step:\n\ttime:\t{time_generation}ms")
+print(f"Generation step:\n\ttime:\t{time_generation}s")
 print(f"Computation step:\n\ttime:\t{time_computation}s")
 
 image.show()

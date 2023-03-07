@@ -1,3 +1,5 @@
+print("Loading libraries...")
+
 import numpy as np
 from math import log
 from PIL import Image
@@ -138,7 +140,7 @@ for y in range(height // nprocs):
     # Print/step progress bar if needed
     if rank == 0 and step_bar:
         step_bar = False
-        prog = last_global_progress
+        prog = last_progress * nprocs # Cheat to avoid race conditions(?)
         spaces = 2 if prog < 10 else 1
         print("\rProgress:   |" + "█" * prog + "·" * (100 - prog) + f"| {' ' * spaces}{prog}%", end="")
         sys.stdout.flush()
@@ -178,9 +180,7 @@ print(f"\nTOTAL EXECUTION TIME: {t_end - t_ini}s\n")
 time_gen_req.wait()
 time_comp_req.wait()
 
-all_times_generation = [1000 * e for e in all_times_generation]
-
-print(f"Generation step:\n\tavg:\t{np.mean(all_times_generation)}ms\n\tstdev:\t{np.std(all_times_generation)}ms")
+print(f"Generation step:\n\tavg:\t{np.mean(all_times_generation)}s\n\tstdev:\t{np.std(all_times_generation)}s")
 print(f"Computation step:\n\tavg:\t{np.mean(all_times_computation)}s\n\tstdev:\t{np.std(all_times_computation)}s\n\tmin:\t{np.min(all_times_computation)}s (process {np.argmin(all_times_computation)})\n\tmax:\t{np.max(all_times_computation)}s (process {np.argmax(all_times_computation)})")
 
 image.show()
