@@ -94,6 +94,7 @@ pixels = np.empty((*mandelbrot_matrix.transpose().shape, 4), dtype=np.uint8)
 
 # Init computation loop variables:
 last_progress = 0
+print("Progress:   |" + "·" * 100 + "|   0%", end="")
 # Computation loop:
 for y in range(height):
     for x in range(width):
@@ -104,9 +105,9 @@ for y in range(height):
         last_progress = int(y / height * 100)
         prog = last_progress
         spaces = 2 if prog < 10 else 1
-        print("\rProgress:   [" + "█" * prog + " " * (100 - prog) + f"] {' ' * spaces}{prog}%", end="")
+        print("\rProgress:   |" + "█" * prog + "·" * (100 - prog) + f"| {' ' * spaces}{prog}%", end="")
         sys.stdout.flush()
-print("\rProgress:   [" + "█" * 100 + "] 100%")
+print("\rProgress:   |" + "█" * 100 + "| 100%")
 sys.stdout.flush()
 t3 = time()
 time_computation = t3 - t2

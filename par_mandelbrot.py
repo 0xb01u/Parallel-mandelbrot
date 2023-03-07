@@ -115,7 +115,7 @@ if rank == 0:
     global_progress = np.zeros((1,), dtype=np.uint8)
     last_global_progress = 0
     step_bar = False
-    print("Progress:   [" + " " * 100 + "]   0%", end="")
+    print("Progress:   |" + "·" * 100 + "|   0%", end="")
     sys.stdout.flush()
 sync_point = None
 # Computation loop:
@@ -140,10 +140,10 @@ for y in range(height // nprocs):
         step_bar = False
         prog = last_global_progress
         spaces = 2 if prog < 10 else 1
-        print("\rProgress:   [" + "█" * prog + " " * (100 - prog) + f"] {' ' * spaces}{prog}%", end="")
+        print("\rProgress:   |" + "█" * prog + "·" * (100 - prog) + f"| {' ' * spaces}{prog}%", end="")
         sys.stdout.flush()
 if rank == 0:
-    print("\rProgress:   [" + "█" * 100 + "] 100%")
+    print("\rProgress:   |" + "█" * 100 + "| 100%")
     sys.stdout.flush()
 t3 = time()
 
