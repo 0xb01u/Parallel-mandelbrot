@@ -1,17 +1,19 @@
-print("Loading libraries...")
+from mpi4py import MPI
+import sys
+
+comm = MPI.COMM_WORLD
+nprocs = comm.Get_size()
+rank = comm.Get_rank()
+
+if rank == 0:
+    print("Loading libraries and syncing CPUs...")
+    sys.stdout.flush()
 
 import numpy as np
 from math import log
 from PIL import Image
 from matplotlib import colormaps
 from time import time, sleep
-import sys
-
-from mpi4py import MPI
-
-comm = MPI.COMM_WORLD
-nprocs = comm.Get_size()
-rank = comm.Get_rank()
 
 if rank == 0:
     t_ini = time()
@@ -90,6 +92,8 @@ palette = [tuple(int(round(channel * 255)) for channel in color) for color in [c
 width = height = 480
 
 comm.barrier() # Process synchronization point
+if rank == 0:
+    print("Libraries loaded; CPUs synced\n\nGenerating image...")
 
 
 # 1. GENERATION OF THE VALUES TO COMPUTE

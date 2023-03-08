@@ -79,6 +79,8 @@ palette = [tuple(int(round(channel * 255)) for channel in color) for color in [c
 # Image width and height
 width = height = 480
 
+print("Libraries loaded\n\nGenerating image...")
+
 
 # 1. GENERATION OF THE VALUES TO COMPUTE
 
